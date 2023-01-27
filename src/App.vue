@@ -1,53 +1,50 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
-</script>
-
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <v-app>
+    <v-app-bar class="bg-purple-darken-3">
+      <div class="logo">
+        <p>PetFinder</p>
+        <v-icon icon="mdi-cat" />
+      </div>
+    </v-app-bar>
+    <v-main class="bg-deep-purple-lighten-4">
+      <v-container>
+        <AgrigationTypeComponent />
+        <TableComponent />
+        <PaginationComponent />
+      </v-container>
+    </v-main>
+    <FooterComponent />
+  </v-app>
 </template>
 
+<script>
+import AgrigationTypeComponent from "@/components/AgrigationTypeComponent.vue";
+import TableComponent from "@/components/TableComponent.vue";
+import PaginationComponent from "@/components/PaginationComponent.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
+import { useMainStore } from "@/stores/MainStore";
+
+export default {
+  name: "app",
+  components: {
+    AgrigationTypeComponent,
+    TableComponent,
+    PaginationComponent,
+    FooterComponent,
+  },
+
+  setup() {
+    const mainStore = useMainStore();
+
+    mainStore.loadData();
+  },
+};
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  font-size: 30px;
+  margin-left: 20px;
 }
 </style>
